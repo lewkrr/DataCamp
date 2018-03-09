@@ -9,9 +9,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ## Rewrite the call to follow best practices
-mean(0.1 , x=c(1:9, NA), TRUE)
+`mean(0.1 , x=c(1:9, NA), TRUE)`
+
+Beyond the first couple of arguments you should always use matching by name. It makes your code much easier for you and others to read. This is particularly important if the argument is optional, because it has a default. When overriding a default value, it's good practice to use the name.
+
+Notice that when you call a function, you should place a space around `=` in function calls, and always put a space after a comma, not before (just like in regular English). Using whitespace makes it easier to skim the function for the important components.
+
+
 ```{r best-practice}
-mean(trim = 0.1 , x=c(1:9, NA), na.rm = TRUE)
+mean(c(1:9, NA), trim = 0.1, na.rm = TRUE)
 ```
