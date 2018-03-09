@@ -58,3 +58,6 @@ typings/
 .env
 
 .Rproj.user
+
+# HTML
+*.html

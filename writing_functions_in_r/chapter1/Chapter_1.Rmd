@@ -79,5 +79,29 @@ tricky_list = list(
 )
 
 
+# Guess where the regression model is stored
 names(tricky_list)
+
+# Use names() and str() on the model element
+names(tricky_list[["model"]])
+str(tricky_list[["model"]])
+
+# Subset the coefficients element
+tricky_list[["model"]]$coefficients
+
+# Subset the wt element
+tricky_list[["model"]][["coefficients"]][["wt"]]
+
+# Try using the $ symbol
+##  tricky_list$model$coefficients$wt  <-- causes an error
+# Note that the coefficients variable is of type double, 
+# therefor $ won't work on it.  However, [[ does
+typeof(tricky_list$model$coefficients)
+
+tricky_list$model$coefficients[["wt"]]
 ```
+
+
+
+
+
