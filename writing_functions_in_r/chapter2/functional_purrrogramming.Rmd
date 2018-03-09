@@ -1,0 +1,102 @@
+---
+title: "Functional Purrrograming"
+author: "Luke KLEIN"
+date: "March 9, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Functional Programming
+
+Functions can be arguments, too.  
+
+```{r}
+df <- data.frame(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+
+col_median <- function(df) {
+  output <- vector("numeric", length(df))
+  for (i in seq_along(df)) {
+    output[[i]] <- median(df[[i]])
+  }
+  output
+}
+
+col_mean <- function(df) {
+  output <- vector("numeric", length(df))
+  for (i in seq_along(df)) {
+    output[[i]] <- mean(df[[i]])
+  }
+  output
+}
+
+col_sd <- function(df, fun) {
+  output <- vector("numeric", length(df))
+  for (i in seq_along(df)) {
+    output[[i]] <- sd(df[[i]])
+  }
+  output
+}
+
+
+# All of the above can be achieved using the following function
+
+col_summary <- function(df, fun) {
+  output <- vector("numeric", length(df))
+  for (i in seq_along(df)) {
+    output[[i]] <- fun(df[[i]])
+  }
+  output
+}
+
+col_summary(df, fun = median)
+col_summary(df, fun = mean)
+col_summary(df, fun = sd)
+```
+
+## The `purrr` package
+
+```{r}
+# Load the purrr package
+library(purrr)
+
+# Use map_dbl() to find column means
+map_dbl(df, mean)
+
+# Use map_dbl() to column medians
+map_dbl(df, median)
+
+# Use map_dbl() to find column standard deviations
+map_dbl(df, sd)
+
+```
+
+The map functions use the `...` ("dot dot dot") argument to pass along additional arguments to `.f` each time it’s called. For example, we can pass the `trim` argument to the `mean()` function.  Multiple arguments can be passed along using commas to separate them. For example, we can also pass the `na.rm` argument to `mean()`
+
+```{r}
+map_dbl(df, mean, trim = 0.5 , na.rm = TRUE)
+```
+
+
+# Shortcuts for `.f`
+
+
+```{r}
+cyl <- split(mtcars, mtcars$cyl)
+str(cyl)
+```
+
+One can extract a desired dataframe in the usual `[[` subsetting manner.
+
+```{r}
+cyl[[1]]
+```
+
