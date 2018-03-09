@@ -1,0 +1,17 @@
+---
+title: "Chapter 1"
+author: "Luke KLEIN"
+date: "March 9, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Rewrite the call to follow best practices
+mean(0.1 , x=c(1:9, NA), TRUE)
+```{r best-practice}
+mean(trim = 0.1 , x=c(1:9, NA), na.rm = TRUE)
+```
